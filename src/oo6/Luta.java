@@ -7,17 +7,11 @@ public class Luta {
     private Lutador desafiante;
     private boolean aprovada;
     private int rouds;
-    
-    // metodos
-    
- 
-    
+    //===============================================================================
     // getters and setters
-
     public Lutador getDesafiado() {
         return desafiado;
     }
-
     public void setDesafiado(Lutador desafiado) {
         this.desafiado = desafiado;
     }
@@ -25,7 +19,6 @@ public class Luta {
     public Lutador getDesafiante() {
         return desafiante;
     }
-
     public void setDesafiante(Lutador desafiante) {
         this.desafiante = desafiante;
     }
@@ -33,7 +26,6 @@ public class Luta {
     public boolean isAprovada() {
         return aprovada;
     }
-
     public void setAprovada(boolean aprovada) {
         this.aprovada = aprovada;
     }
@@ -41,56 +33,51 @@ public class Luta {
     public int getRouds() {
         return rouds;
     }
-
     public void setRouds(int rouds) {
         this.rouds = rouds;
     }
-    
-    
-    
-    
-       public void marcarLuta(Lutador l1, Lutador l2){
-        if((l1.getCategoria()== l2.getCategoria())&&(l1!=l2)){
-            this.setAprovada(true);
+    //===============================================================================        
+    // metodos
+    public void marcarLuta(Lutador l1, Lutador l2){
+        if((l1 != l2)&&(l1.getCategoria()==l2.getCategoria())){                
             this.setDesafiante(l1);
             this.setDesafiado(l2);
+            this.setAprovada(true);
         }else{
-            this.setAprovada(false);
             this.setDesafiante(null);
             this.setDesafiado(null);
-        }
-        
+            this.setAprovada(false);    
+        }        
     }
-    
+    //===============================================================================        
     public void lutar(){
-        if(this.isAprovada()==true){
-            System.out.println("### DESAFIANTE ###");
+        if(this.isAprovada() == true){
+            System.out.println("|| DESAFIANTE ||");
             this.getDesafiante().apresentar();
-            System.out.println("### DESAFIADO ###");
+            System.out.println("|| DESAFIADO ||");
             this.getDesafiado().apresentar();
             
-            Random aleatorio = new Random();
-            int vencedor = aleatorio.nextInt(3);//0,1,2
-            switch(vencedor){
-                case 0://empate
-                    System.out.println("empatou");
-                    this.getDesafiante().empatarLuta();
-                    this.getDesafiado().empatarLuta();
+            Random r = new Random();
+            
+            int iResult = r.nextInt(3); // 0,1,2,3
+            switch(iResult){
+                case 0:
+                    System.out.println("|| EMPATE ||");
+                    this.getDesafiante().empate();
+                    this.getDesafiado().empate();
                     break;
-                case 1://desafiante vence
-                    System.out.println(this.getDesafiante().getNome()+" venceu");
+                case 1:
+                    System.out.println("|| VITÓRIA DE: "+this.getDesafiante().getNome()+" ||");
                     this.getDesafiante().ganharLuta();
                     this.getDesafiado().perderLuta();
                     break;
-                case 2://desafiado vence
-                    System.out.println(this.getDesafiado().getNome()+" venceu");
-                    this.getDesafiado().ganharLuta();
+                case 2:
+                    System.out.println("|| VIÓTRIA DE: "+this.getDesafiado().getNome()+" ||");
                     this.getDesafiante().perderLuta();
-                    break;
+                    this.getDesafiado().ganharLuta();
             }
         }else{
-            System.out.println("luta não pode acontecer");
+            System.out.println("|| LUTA NÃO PODE ACONTECER ||");
         }
-        
     }
 }
